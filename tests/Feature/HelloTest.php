@@ -38,6 +38,8 @@ class HelloTest extends TestCase
 
         $hello = Hello::factory()->create();
 
+        $hello->delete();
+
         $response = $this->post('/api/hello', ['name' => $hello->name]);
 
         $response->assertStatus(200);

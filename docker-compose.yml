@@ -23,6 +23,16 @@ services:
             - sail
         depends_on:
             - mysql
+    vue-ui:
+        build:
+            context: ./ui
+            dockerfile: Dockerfile
+        ports:
+            - "8080:8080"
+        container_name: vue-ui
+        volumes:
+            - ./ui:/app
+            - /app/node_modules
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:
