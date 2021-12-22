@@ -24,7 +24,3 @@ Route::group(['middleware' => ['web']], function(){
 
 // Resource
 Route::middleware('auth:sanctum')->resource('hello', \App\Http\Controllers\HelloController::class);
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
