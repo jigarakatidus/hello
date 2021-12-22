@@ -29,7 +29,12 @@ class HelloController extends Controller
             'name' => 'required',
         ]);
 
-        $hello = Hello::withTrashed()->updateOrCreate(['name' => $request->get('name')], ['deleted_at' => null]);
+        $hello = Hello::withTrashed()->updateOrCreate([
+            'user_id' => 1,
+            'name' => $request->get('name')
+        ], [
+            'deleted_at' => null
+        ]);
         if($hello->trashed()){
             $hello->setHighestOrderNumber();
             $hello->restore();

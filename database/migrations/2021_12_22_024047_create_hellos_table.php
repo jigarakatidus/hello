@@ -15,10 +15,13 @@ class CreateHellosTable extends Migration
     {
         Schema::create('hellos', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('name')->unique();
             $table->integer('order');
             $table->softDeletes();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

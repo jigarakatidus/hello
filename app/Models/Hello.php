@@ -15,7 +15,11 @@ class Hello extends Model implements Sortable
     /**
      * @var string[] When creating the record from create method of eloquent model
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'user_id'];
 
     protected $sortable = ['order'];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }
