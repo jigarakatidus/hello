@@ -17,6 +17,7 @@ class CreateHellosTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->integer('order');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

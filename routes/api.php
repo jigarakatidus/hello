@@ -14,15 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/hello', function (){
-    return \App\Models\Hello::all();
-});
-
-Route::post('/hello', function (){
-    return \App\Models\Hello::create([
-        'name' => 'Jan Blom',
-    ]);
-});
+Route::resource('hello', \App\Http\Controllers\HelloController::class);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
