@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Hello;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HelloController extends Controller
 {
@@ -30,7 +31,7 @@ class HelloController extends Controller
         ]);
 
         $hello = Hello::withTrashed()->updateOrCreate([
-            'user_id' => 1,
+            'user_id' => Auth::id(),
             'name' => $request->get('name')
         ], [
             'deleted_at' => null
