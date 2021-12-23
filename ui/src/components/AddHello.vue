@@ -25,6 +25,7 @@ export default {
                     name: this.formData.name,
                 }).then(response => {
                     this.$emit('addHello', response.data);
+                    this.formData.name = "";
                 }).catch(error => {
                     console.log(error.response);
                 });

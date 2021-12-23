@@ -5,7 +5,7 @@
         <button type="button" @click="submitEditForm">Submit</button>
     </form>
     <button type="button" @click="editHello = true" v-if="!editHello">Edit</button>
-    <button type="button">Delete</button>
+    <button type="button" @click="deleteHello">Delete</button>
 </template>
 
 <script>
@@ -15,7 +15,7 @@ export default {
     props: {
         item: Object,
     },
-    emits: ['updateHello'],
+    emits: ['updateHello', 'destroyHello'],
     data(){
         return {
             editHello: false,
@@ -38,6 +38,19 @@ export default {
                     this.editHello = false;
                 });
             });
+        },
+        deleteHello(){
+
+            axios.get('http://localhost/sanctum/csrf-cookie').then(() => {
+                axios.delete('http://localhost/api/hello/' + this.item.id)
+                    .then(() => {
+                        this.$emit('destroyHello', this.item.id);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            });
+
         }
     }
 }

@@ -4,11 +4,12 @@
         <Login @post-login="postLogin($event)"></Login>
     </div>
     <div v-if="!loggedIn && showRegister">
-        <Register></Register>
+        <Register @post-register="postRegister()"></Register>
     </div>
     <div v-if="loggedIn">
-        <HelloList></HelloList>
+        <HelloList @logged-out="loggedIn = false"></HelloList>
     </div>
+    <button type="button" v-if="!showRegister && !loggedIn" @click.prevent="showRegister = true">Register</button>
 </template>
 
 <script>
@@ -33,6 +34,10 @@ export default {
         postLogin(){
             this.loggedIn = true;
             localStorage.setItem('loggedInUser', "true")
+        },
+        postRegister(){
+            this.loggedIn = false;
+            this.showRegister = false;
         }
     },
     mounted() {
