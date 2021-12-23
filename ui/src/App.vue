@@ -7,7 +7,8 @@
         <Register @post-register="postRegister()"></Register>
     </div>
     <div v-if="loggedIn">
-        <HelloList @logged-out="loggedIn = false"></HelloList>
+<!--        <HelloList @logged-out="loggedIn = false"></HelloList>-->
+        <Handle @logged-out="loggedIn = false"/>
     </div>
     <button type="button" v-if="!showRegister && !loggedIn" @click.prevent="showRegister = true">Register</button>
 </template>
@@ -15,14 +16,16 @@
 <script>
 import Login from './components/Login';
 import Register from './components/Register';
-import HelloList from './components/HelloList';
+// import HelloList from './components/HelloList';
 import axios from "axios";
+import Handle from "./components/Handle";
 export default {
     name: 'App',
     components: {
+        Handle,
         Login,
         Register,
-        HelloList,
+        // HelloList,
     },
     data() {
         return {
