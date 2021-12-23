@@ -51,7 +51,9 @@ class HelloController extends Controller
      */
     public function show($id)
     {
-        return Hello::find($id);
+        return Hello::where('user_id', Auth::id())
+            ->where('id', $id)
+            ->get();
     }
 
     /**
