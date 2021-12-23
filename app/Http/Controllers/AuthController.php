@@ -16,8 +16,8 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|unique:users|email',
-            'password' => 'required|min:12',
-            'password_confirmed' => 'confirmed',
+            'password' => 'required|min:8',
+//            'password_confirmed' => 'confirmed|min:8',
         ]);
 
         return User::create([
@@ -31,7 +31,7 @@ class AuthController extends Controller
     {
         $request->validate([
             'email' => 'required|email',
-            'password' => 'required|min:12',
+            'password' => 'required|min:8',
         ]);
 
         if(Auth::attempt($request->only('email', 'password'))){

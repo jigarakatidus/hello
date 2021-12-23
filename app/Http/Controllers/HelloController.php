@@ -15,7 +15,7 @@ class HelloController extends Controller
      */
     public function index()
     {
-        return Hello::all();
+        return Hello::where('user_id', Auth::id())->get();
     }
 
     /**
