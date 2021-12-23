@@ -14,13 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-// Authentication
-Route::group(['middleware' => ['web']], function(){
-    Route::post('/register', [\App\Http\Controllers\AuthController::class, 'register']);
-    Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login']);
-    Route::middleware(['auth:sanctum'])->post('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
-});
-
+Route::middleware('auth:sanctum')->post('/hello/sort', [\App\Http\Controllers\HelloController::class, 'sort']);
 // Resource
 Route::middleware('auth:sanctum')->resource('hello', \App\Http\Controllers\HelloController::class);

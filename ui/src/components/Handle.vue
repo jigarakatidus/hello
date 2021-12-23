@@ -5,15 +5,16 @@
 <!--        </div>-->
         <AddHello @add-hello="(hello) => postAddHello($event, hello)"/>
         <div class="col-7">
-            <h3>Draggable {{ draggingInfo }}</h3>
+            <h3>Draggable</h3>
 
             <draggable
                 tag="div"
                 :list="list"
                 class="list-group"
                 handle=".handle"
-                item-key="id"
-            >
+                @end="onEnd"
+                item-key="id">
+
                 <template #item="{ element, index }">
                     <div class="list-group-item">
                         <i class="fa fa-align-justify handle"></i>
@@ -50,11 +51,6 @@ export default {
             message: "",
         };
     },
-    computed: {
-        draggingInfo() {
-            return this.dragging ? "under drag" : "";
-        }
-    },
     mounted() {
         axios.get('http://localhost/sanctum/csrf-cookie').then(() => {
             axios.get('http://localhost/api/hello').then(response => {
@@ -77,6 +73,20 @@ export default {
         //     id++;
         //     this.list.push({ name: "", id});
         // },
+        onSort(e){
+            console.log(e);
+        },
+        onEnd(){
+            axios.get('http://localhost/sanctum/csrf-cookie').then(() => {
+                axios.post('http://localhost/api/hello/sort', {
+                    data: this.list
+                }).then(() => {
+                    this.message = 'Reordered Successful';
+                }).catch(error => {
+                    this.message = 'Error while ordering' + JSON.stringify(error);
+                });
+            });
+        },
         postAddHello(e, hello){
             this.list.push(hello);
         },

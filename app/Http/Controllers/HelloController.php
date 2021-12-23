@@ -15,7 +15,7 @@ class HelloController extends Controller
      */
     public function index()
     {
-        return Hello::where('user_id', Auth::id())->get();
+        return Hello::where('user_id', Auth::id())->ordered()->get();
     }
 
     /**
@@ -79,5 +79,17 @@ class HelloController extends Controller
     public function destroy($id)
     {
         return Hello::destroy($id);
+    }
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return array
+     */
+    public function sort(Request $request)
+    {
+        $hellos = collect($request->data);
+        Hello::setNewOrder($hellos->pluck('id')->all(), 1, 'id');
+        return $this->index();
     }
 }

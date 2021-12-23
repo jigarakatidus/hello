@@ -1,5 +1,8 @@
 <template>
     <img alt="Vue logo" src="./assets/logo.png">
+    <div v-if="loggedIn">
+        <button type="button" @click.prevent="logout">Logout</button>
+    </div>
     <div v-if="!loggedIn && !showRegister">
         <Login @post-login="postLogin($event)"></Login>
     </div>
@@ -41,6 +44,11 @@ export default {
         postRegister(){
             this.loggedIn = false;
             this.showRegister = false;
+        },
+        logout(){
+            axios.post('http://localhost/logout').then(() => {
+                this.loggedIn = false;
+            });
         }
     },
     mounted() {
