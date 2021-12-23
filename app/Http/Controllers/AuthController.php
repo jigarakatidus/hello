@@ -11,13 +11,19 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
+    /**
+     * Register Functionality to create Users
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return mixed
+     */
     public function register(Request $request)
     {
         $request->validate([
             'name' => 'required',
             'email' => 'required|unique:users|email',
             'password' => 'required|min:8',
-//            'password_confirmed' => 'confirmed|min:8',
+//            'password_confirmed' => 'confirmed',
         ]);
 
         return User::create([
@@ -27,6 +33,13 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Login Users
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function login(Request $request)
     {
         $request->validate([
@@ -44,6 +57,11 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Logout method
+     * @param \Illuminate\Http\Request $request
+     * @link https://laravel.com/docs/8.x/authentication#logging-out
+     */
     public function logout(Request $request)
     {
         Auth::guard('web')->logout();

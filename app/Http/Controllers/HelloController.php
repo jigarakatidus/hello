@@ -82,9 +82,10 @@ class HelloController extends Controller
     }
 
     /**
+     * Sort the Hellos as received
      * @param \Illuminate\Http\Request $request
      *
-     * @return array
+     * @return \Illuminate\Http\Response
      */
     public function sort(Request $request)
     {
